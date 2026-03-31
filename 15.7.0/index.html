@@ -9,32 +9,13 @@
 
   <script src="react.min.js"></script>
   <script src="react-dom.min.js"></script>
+
+  <script src="../genData.js"></script>
 </head>
 
 <body>
   <div id="root"></div>
   <script>
-    function genData2() {
-      const ts = Array(2_000);
-      const vals = Array(2_000);
-
-      for (let i = 0; i < 2_000; i++) {
-        ts[i] = 1773554800346 + i;
-        vals[i] = Math.random() * 100
-      }
-
-      const data = Array(2_000);
-
-      for (let i = 0; i < 2_000; i++) {
-        data[i] = [
-          ts.slice(),
-          vals.slice(),
-        ];
-      }
-
-      return data;
-    }
-
     function App({ data }) {
       return React.createElement("div", null, data[0][1][0]);
     }
@@ -44,7 +25,7 @@
     renderWithData();
 
     function renderWithData() {
-      const data = genData2();
+      const data = genData();
 
       ReactDOM.render(React.createElement(App, { data: data }), elem);
     }
