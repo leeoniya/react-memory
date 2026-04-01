@@ -20,6 +20,26 @@ function useRefState(thing) {
   return ref.current;
 }
 
+function useRefMemo(cb, deps) {
+  const ref = React.useRef();
+  ref.current ??= [
+    deps,
+    null, // state
+  ];
+
+  if (deps !== ref.current[0]) {
+    for (let i = 0; i < deps.length; i++) {
+      if (deps[i] !== ref.current[0][i]) {
+        ref.current[1] = cb();
+        break;
+      }
+    }
+    ref.current[0] = deps;
+  }
+
+  return ref.current[1];
+}
+
 function useGetState(thing) {
   const [, forceUpdate] = React.useReducer(incr, 0);
 
